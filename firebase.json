@@ -17,9 +17,7 @@
         "firebase-debug.*.log",
         "*.local"
       ],
-      "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint"
-      ]
+      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run lint"]
     }
   ],
   "emulators": {
@@ -42,10 +40,10 @@
   },
   "auth": {
     "providers": {
-      "anonymous": true,
+      "anonymous": false,
       "emailPassword": true,
       "googleSignIn": {
-        "oAuthBrandDisplayName": "Magyar Wesnoth Portál",
+        "oAuthBrandDisplayName": "Magyar Wesnoth Közösségi Portál",
         "supportEmail": "wesnoth.hu@gmail.com"
       }
     }

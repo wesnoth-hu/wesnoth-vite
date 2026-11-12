@@ -1,0 +1,59 @@
+Magyar Wesnoth Közösség
+	Adminisztrátor
+		Hozzászólások :pen:
+			Create/Upload
+			View
+			Edit
+			Publish/Unpublish/Draft
+			Delete
+			Flag
+			Give/Receive Gold
+			Approve
+		Cikkek :scroll:
+			
+		Képek :camera_with_flash:
+			
+		Állományok(Fájlok) :file_folder:
+			
+		Mozgóképek(Videók) :video_camera:
+			
+	Moderátor
+		Cikkek :scroll:
+			Create/Upload
+			View
+			Edit
+			Publish/Draft
+			Flag
+			Give/Receive Gold
+			Approve
+		Hozzászólások :pen:
+			
+		Állományok(Fájlok) :file_folder:
+			
+		Képek :camera_with_flash:
+			
+		Mozgóképek(Videók) :video_camera:
+			
+	Felhasználó
+		Cikkek :scroll:
+			Create/Publish(mod. approval)
+			View
+			Flag
+			Give/Receive Gold
+		Hozzászólások :pen:
+			Create
+			View
+			Edit(owned)
+			Flag
+			Give/Receive Gold
+		Állományok(Fájlok) :file_folder:
+			Create/Upload
+			View
+			Delete(owned)
+			Edit(owned)
+			Flag
+			Give/Receive Gold
+		Képek :camera_with_flash:
+			
+		Mozgóképek(Videók) :video_camera:
+			

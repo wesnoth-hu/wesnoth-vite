@@ -1,35 +1,42 @@
 {
   "name": "wesnoth-vite",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "emulators": "firebase emulators:start --only 'auth','firestore','functions' --import=./emulator-data --export-on-exit=./emulator-data"
   },
   "dependencies": {
+    "@casl/ability": "^7.1.2",
+    "@casl/react": "^7.1.0",
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
-    "@tailwindcss/typography": "^0.5.20",
-    "@tailwindcss/vite": "^4.3.3",
-    "firebase": "^12.19.0",
-    "firebase-functions": "^7.4.0",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "tailwindcss": "^4.3.3",
-    "zod": "^4.6.5",
-    "zustand": "^5.0.15"
+    "@tailwindcss/vite": "^4.3.5",
+    "firebase": "^13.2.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router": "^8.5.1",
+    "tailwindcss": "^4.3.5",
+    "zod": "^4.6.7",
+    "zustand": "^5.1.0"
   },
   "devDependencies": {
-    "@types/node": "^24.13.3",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.7",
-    "@vitejs/plugin-react": "^6.1.1",
-    "oxlint": "^1.81.0",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "oxlint": "^1.93.0",
     "typescript": "~6.0.2",
-    "vite": "^8.3.0",
-    "vitest": "^5.0.1"
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
+  },
+  "allowScripts": {
+    "protobufjs@7.6.6": true,
+    "@firebase/util@1.15.3": true
   }
 }
