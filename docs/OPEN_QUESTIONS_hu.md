@@ -1,42 +1,39 @@
-# Nyitott Kérdések – Fejlesztési Fázisban Eldöntendő
-
+Nyitott Kérdések – Fejlesztési Fázisban Eldöntendő
 Projekt: Magyar Wesnoth Közösségi Portál
-Verzió: 1.0
-Utolsó frissítés: [DÁTUM]
+Verzió: 1.1
+Utolsó frissítés: 2026-11-13
 Státusz: Fejlesztés előtti tervezési fázis
 
 📋 Áttekintés
 Ez a dokumentum azokat a nyitott kérdéseket tartalmazza, amelyeket a fejlesztési fázis megkezdésekor kell tisztázni és eldönteni. A kérdések a jelenlegi architektúra-tervezés során merültek fel, és a végleges implementáció előtt döntést igényelnek.
 
-Használat: A fejlesztés megkezésekor ezt a listát vegyük elő, és egyenként menjünk végig rajta. Minden kérdésnél jelöljük a döntést és a döntés dátumát.
+Használat: A fejlesztés megkezdésekor ezt a listát vegyük elő, és egyenként menjünk végig rajta. Minden kérdésnél jelöljük a döntést és a döntés dátumát.
 
 1. Gold rendszer mennyiségek
-Kontextus: A gold a játékbeli valutát utánozza, és activity alapján jár (poszt, komment, média feltöltés). Flag → moderation → szabálysértés esetén levonás.
+   Kontextus: A gold a játékbeli valutát utánozza, és activity alapján jár (poszt, komment, média feltöltés). Flag → moderation → szabálysértés esetén levonás.
 
 Eldöntendő:
 
-□ Mennyi gold jár egy posztért?
-□ Mennyi gold jár egy kommentért?
-□ Mennyi gold jár egy média feltöltésért (kép, videó, audió, fájl)?
+☑ Mennyi gold jár egy posztért, kommentért, média feltöltésért? → Fibonacci-sorozatot követ
 □ Van-e napi limit (spam elleni védelem)?
 □ Regisztrációkor jár-e kezdő gold? Ha igen, mennyi?
 □ Van-e különbség a tartalomtípusok között a gold mennyiségben?
-Döntés: [fejlesztéskor kitöltendő]
+Döntés: A gold mennyiségek a Fibonacci-sorozatot követik (1, 1, 2, 3, 5, 8, 13, 21, ...). A pontos hozzárendelés (melyik eseményhez melyik szám tartozik) a fejlesztés során kerül kidolgozásra. A gold jóváírást Cloud Function végzi a biztonság érdekében.
 
 2. Auto-approve szabályok
-Kontextus: A diagramon a felhasználói cikkeknél „mod. approval" szerepel, de a hozzászólásoknál nem. Minden tartalom pending állapotban jön létre, és moderátor approve-olja.
+   Kontextus: A diagramon a felhasználói cikkeknél „mod. approval" szerepel, de a hozzászólásoknál nem. Minden tartalom pending állapotban jön létre, és moderátor approve-olja.
 
 Eldöntendő:
 
-□ Megbízható felhasználóknál (pl. 1 hónap tagság + 100 gold) automatikus approve?
+☑ Megbízható felhasználóknál (pl. 1 hónap tagság + 100 gold) automatikus approve? → Igen, megbízható felhasználóknál auto-approve
 □ Vagy minden tartalom moderációra vár?
 □ Mely tartalomtípusoknál van approve egyáltalán? (cikk, komment, média)
-□ Van-e „trust level" rendszer (pl. új felhasználó, megbízható, veterán)?
+☑ Van-e „trust level" rendszer (pl. új felhasználó, megbízható, veterán)? → Igen, badge jelzi a profilon és a név mellett
 □ Mi történik, ha egy megbízható felhasználó szabálysértést követ el? (visszaesik?)
-Döntés: [fejlesztéskor kitöltendő]
+Döntés: Auto-approve működik a megbízható felhasználóknál. A megbízhatóságot egy badge jelzi a profilon és a felhasználónév mellett. A pontos feltételek (pl. mennyi gold, mennyi idő után válik valaki megbízhatóvá) a fejlesztés során kerülnek kidolgozásra. A badge megjelenítése a profile feature része lesz.
 
 3. Kategóriák
-Kontextus: A diagramon szerepel, de még nincs eldöntve, hogy lesznek-e, és milyen struktúrában.
+   Kontextus: A diagramon szerepel, de még nincs eldöntve, hogy lesznek-e, és milyen struktúrában.
 
 Eldöntendő:
 
@@ -49,31 +46,31 @@ Eldöntendő:
 Döntés: [fejlesztéskor kitöltendő]
 
 4. Search engine választás
-Kontextus: react-query + ingyenes, de capable search engine. A Firestore full-text search korlátozott.
+   Kontextus: react-query + ingyenes, de capable search engine. A Firestore full-text search korlátozott.
 
 Eldöntendő:
 
-□ Meilisearch, Typesense, Algolia, vagy egyéb?
+☑ Meilisearch, Typesense, Algolia, vagy egyéb? → Algolia
 □ Self-hosted vagy cloud?
 □ Milyen gyakran szinkronizáljunk? (valós időben, óránként, naponta?)
 □ Milyen tartalomtípusokat indexeljünk? (cikk, komment, média, felhasználó?)
 □ Van-e szükség faceted search-re (szűrés kategóriára, dátumra, szerzőre)?
 □ Hogyan kezeljük a magyar nyelvű keresést? (ékezetek, toldalékok)
-Döntés: [fejlesztéskor kitöltendő]
+Döntés: Algolia lesz a search engine. A szinkronizáció gyakorisága, az indexelendő tartalomtípusok és a faceted search részletei a fejlesztés során kerülnek kidolgozásra.
 
 5. Fájl hosting
-Kontextus: Ingyenes, de generous hosting kell. Videók lehet YouTube embed, képek Cloudinary/ImageKit, fájlok még eldöntendő.
+   Kontextus: Ingyenes, de generous hosting kell. Videók lehet YouTube embed, képek Cloudinary/ImageKit, fájlok még eldöntendő.
 
 Eldöntendő:
 
 Képek:
 
-□ Cloudinary vagy ImageKit?
+☑ Cloudinary vagy ImageKit? → Cloudinary
 □ Milyen transzformációk kellenek? (méret, formátum, watermark)
 □ Van-e méretlimit?
 Videók:
 
-□ YouTube embed (unlisted) vagy más?
+☑ YouTube embed (unlisted) vagy más? → YouTube embed (unlisted)
 □ Ha YouTube, hogyan kezeljük a videó metaadatokat?
 □ Van-e lehetőség feltöltésre is (nem csak embed)?
 Audió:
@@ -83,14 +80,22 @@ Audió:
 □ Van-e méretlimit?
 Fájlok:
 
-□ Cloudflare R2 vagy Firebase Storage?
+☑ Cloudflare R2 vagy Firebase Storage? → Cloudflare R2 (ingyenes egress, 10 GB tárhely)
 □ Milyen fájltípusok engedélyezettek? (PDF, zip, doc, stb.)
 □ Van-e méretlimit?
 □ Van-e vírusellenőrzés?
-Döntés: [fejlesztéskor kitöltendő]
+Döntés:
+
+Képek: Cloudinary
+
+Videók: YouTube embed (unlisted)
+
+Fájlok: Cloudflare R2 (S3-kompatibilis, ingyenes egress, 10 GB ingyenes tárhely)
+
+Audió: [fejlesztéskor kitöltendő]
 
 6. Gold levonás flagged tartalomnál
-Kontextus: Flag → moderation → ha szabálysértés, admin/moderator levonja a goldot.
+   Kontextus: Flag → moderation → ha szabálysértés, admin/moderator levonja a goldot.
 
 Eldöntendő:
 
@@ -102,7 +107,7 @@ Eldöntendő:
 Döntés: [fejlesztéskor kitöltendő]
 
 7. Komment hierarchia részletei
-Kontextus: Flat, de referenciával az előző hozzászólásra/posztra.
+   Kontextus: Flat, de referenciával az előző hozzászólásra/posztra.
 
 Eldöntendő:
 
@@ -114,7 +119,7 @@ Eldöntendő:
 Döntés: [fejlesztéskor kitöltendő]
 
 8. Admin panel scope
-Kontextus: Külön protected route CASL.js implementációval.
+   Kontextus: Külön protected route CASL.js implementációval.
 
 Eldöntendő:
 
@@ -136,7 +141,7 @@ Moderációs queue:
 Döntés: [fejlesztéskor kitöltendő]
 
 9. Értesítések
-Kontextus: In-app + e-mail (Brevo) kombináció. Felhasználó beállíthatja, mit kér.
+   Kontextus: In-app + e-mail (Brevo) kombináció. Felhasználó beállíthatja, mit kér.
 
 Eldöntendő:
 
@@ -148,7 +153,7 @@ Eldöntendő:
 Döntés: [fejlesztéskor kitöltendő]
 
 10. Média típusok pontosítása
-Kontextus: A diagramon „Mozgóképek (Videók)", „Képek", „Állományok (Fájlok)" szerepel. Az audió (music, ringtones) külön kategória lehet.
+    Kontextus: A diagramon „Mozgóképek (Videók)", „Képek", „Állományok (Fájlok)" szerepel. Az audió (music, ringtones) külön kategória lehet.
 
 Eldöntendő:
 
@@ -160,7 +165,7 @@ Eldöntendő:
 Döntés: [fejlesztéskor kitöltendő]
 
 11. Fióktörlés (GDPR)
-Kontextus: A felhasználó bármikor kérheti fiókja törlését.
+    Kontextus: A felhasználó bármikor kérheti fiókja törlését.
 
 Eldöntendő:
 
@@ -173,35 +178,47 @@ Eldöntendő:
 Döntés: [fejlesztéskor kitöltendő]
 
 12. Regisztrációs flow
-Kontextus: Firebase Authentication + Google Sign-In.
+    Kontextus: Firebase Authentication + Google Sign-In.
 
 Eldöntendő:
 
-□ Email verification kötelező?
-□ Google Sign-In kötelező opció vagy alternatíva?
-□ Van-e „meghívásos" rendszer vagy nyílt regisztráció?
+☑ Email verification kötelező? → Igen
+☑ Google Sign-In kötelező opció vagy alternatíva? → Alternatíva (választható)
+☑ Van-e „meghívásos" rendszer vagy nyílt regisztráció? → Nyílt regisztráció
 □ Van-e CAPTCHA vagy botvédelem?
-□ Regisztrációkor kötelező-e az ÁSZF és Adatvédelmi Nyilatkozat elfogadása? (igen, GDPR miatt)
+☑ Regisztrációkor kötelező-e az ÁSZF és Adatvédelmi Nyilatkozat elfogadása? → Igen, GDPR miatt kötelező
 □ Van-e „onboarding" folyamat? (profil beállítás, bemutatkozás)
-Döntés: [fejlesztéskor kitöltendő]
+Döntés:
+
+Email/Jelszó + Google Sign-In (mindkettő elérhető, a felhasználó választhat)
+
+Nyílt regisztráció (nincs meghívásos rendszer)
+
+Email verification kötelező
+
+ÁSZF és Adatvédelmi Nyilatkozat elfogadása kötelező a regisztrációkor
+
+Passwordless (jelszó nélküli) belépés NEM lesz
 
 📝 Döntési Napló
 Az alábbi táblázatba kerülnek a döntések, amikor megszületnek:
 
-#	Kérdés	Döntés	Dátum	Megjegyzés
+# Kérdés Döntés Dátum Megjegyzés
 
-1	Gold mennyiségek	[fejlesztéskor]
-2	Auto-approve	[fejlesztéskor]
-3	Kategóriák	[fejlesztéskor]
-4	Search engine	[fejlesztéskor]
-5	Fájl hosting	[fejlesztéskor]
-6	Gold levonás	[fejlesztéskor]
-7	Komment hierarchia	[fejlesztéskor]
-8	Admin panel	[fejlesztéskor]		
-9	Értesítések	[fejlesztéskor]		
-10	Média típusok	[fejlesztéskor]		
-11	Fióktörlés	[fejlesztéskor]		
-12	Regisztráció	[fejlesztéskor]		
+1 Gold mennyiségek Fibonacci-sorozat 2025-01-15 Cloud Function számolja
+2 Auto-approve Megbízható usereknél auto-approve + badge 2025-01-15 Badge a profilon és név mellett
+3 Kategóriák [fejlesztéskor]
+4 Search engine Algolia 2025-01-15
+5 Fájl hosting Képek: Cloudinary, Videók: YouTube, Fájlok: Cloudflare R2 2025-01-15 Audió: TBD
+6 Gold levonás [fejlesztéskor]
+7 Komment hierarchia [fejlesztéskor]
+8 Admin panel [fejlesztéskor]
+9 Értesítések [fejlesztéskor]
+10 Média típusok [fejlesztéskor]
+11 Fióktörlés [fejlesztéskor]
+12 Regisztráció Email/Jelszó + Google, nyílt, email verify, ÁSZF kötelező 2025-01-15 Passwordless nincs
 🔄 Verziótörténet
-Verzió	Dátum	Változás
-1.0	[DÁTUM]	Kezdeti verzió – nyitott kérdések listája
+Verzió Dátum Változás
+1.0 [DÁTUM] Kezdeti verzió – nyitott kérdések listája
+1.1 2025-01-15 Döntések frissítve: auth flow, gold, auto-approve, search, fájl hosting
+Megjegyzés: Ez a dokumentum a fejlesztési fázis elején lesz elővéve. Addig is, ha bármelyik kérdésre időközben döntést hozol, frissítsd a „Döntés" mezőt és a döntési naplót.
