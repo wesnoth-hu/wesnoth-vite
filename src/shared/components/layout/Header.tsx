@@ -1,3 +1,5 @@
+import Menu from "./Menu";
+
 export default function Header() {
   return (
     <div
@@ -10,9 +12,11 @@ export default function Header() {
       >
         <img
           data-testid="layout-header__logo-image"
-          src="/images/bg/mwesnoth_feliratos_13_resize.png"
+          src="/images/logos/mwesnoth.png"
           alt="Magyar Wesnoth Közösség Logo"
-          height="200"
+          width={400}
+          height={200}
+          className="object-contain"
         />
       </div>
       <div
@@ -40,6 +44,7 @@ export default function Header() {
             className="rotate-[-135deg]"
           />
         </div>
+        <Menu />
       </div>
     </div>
   );
