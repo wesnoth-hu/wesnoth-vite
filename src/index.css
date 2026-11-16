@@ -1,6 +1,22 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Oldania ADF Std";
+  src: url("/fonts/Oldania.otf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  --breakpoint-3xl: 120rem;
-  --breakpoint-4xl: 160rem;
+  --breakpoint-3xl: 120rem; /**1920px*/
+  --breakpoint-4xl: 133rem; /**2133px*/
+  --breakpoint-5xl: 150rem; /**2400px*/
+  --breakpoint-6xl: 160rem; /**2560px*/
+  --breakpoint-7xl: 180rem; /**2880px*/
+  --breakpoint-8xl: 240rem; /**3840px*/
+  --breakpoint-9xl: 360rem; /**5760px*/
+  --breakpoint-10xl: 480rem; /**7680px*/
+
+  --font-oldania: "Oldania ADF Std", ui-sans-serif, system-ui, sans-serif;
 }
