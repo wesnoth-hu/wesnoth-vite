@@ -1,9 +1,10 @@
-import { useEffect, useRef, type Dispatch, type SetStateAction } from "react";
+import { useRef, type Dispatch, type SetStateAction } from "react";
 import { Link } from "react-router";
 import { Icon } from "@mdi/react";
 import { mdiMenu } from "@mdi/js";
 import { translations } from "../../../../config/translationAssets";
 import { useLang } from "../../../hooks/useLang";
+import { useDismiss } from "../../../hooks/useDismiss";
 
 export default function Tablet({
   open,
@@ -18,21 +19,7 @@ export default function Tablet({
 
   const tabletMenuItems = Object.entries(translations[language]);
 
-  useEffect(() => {
-    if (!open) return;
-    const onPointerDown = (event: PointerEvent) => {
-      if (!tabletRef.current?.contains(event.target as Node)) setOpen(false);
-    };
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("pointerdown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("pointerdown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open, setOpen]);
+  useDismiss(tabletRef, () => setOpen(false), open);
 
   return (
     <div

@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Icon } from "@mdi/react";
 import { mdiChevronDown } from "@mdi/js";
 import { useLang } from "../../hooks/useLang";
+import { useDismiss } from "../../hooks/useDismiss";
 import { LANGUAGES } from "../../../config/languages";
 
 export default function LanguageSwitcher() {
@@ -9,22 +10,10 @@ export default function LanguageSwitcher() {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!open) return;
-    const onPointerDown = (event: PointerEvent) => {
-      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
-    };
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("pointerdown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("pointerdown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open]);
+  // Close on a click outside or on Escape, only while the list is open.
+  useDismiss(rootRef, () => setOpen(false), open);
 
+  // The flag is derived from the language the app really uses.
   const current = LANGUAGES.find((l) => l.code === language) ?? LANGUAGES[0];
 
   return (

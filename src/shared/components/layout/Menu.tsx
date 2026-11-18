@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useBreakpoint } from "./MenuModules/useBreakpoint";
+import { useBreakpoint } from "../../hooks/useBreakpoint";
 import Mobile from "./MenuModules/Mobile";
 import Tablet from "./MenuModules/Tablet";
 import SmallDesktop from "./MenuModules/SmallDesktop";

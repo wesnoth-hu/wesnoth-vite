@@ -1,8 +1,9 @@
-import { useEffect, useRef, type Dispatch, type SetStateAction } from "react";
+import { useRef, type Dispatch, type SetStateAction } from "react";
 import { Link } from "react-router";
 import { Icon } from "@mdi/react";
 import { mdiMenu } from "@mdi/js";
 import { useLang } from "../../../hooks/useLang";
+import { useDismiss } from "../../../hooks/useDismiss";
 import { MENU_ITEMS } from "../../../../config/menuItems";
 
 const [firstItem, ...dropdownItems] = MENU_ITEMS;
@@ -18,21 +19,7 @@ export default function Mobile({
   const { t } = useLang();
   const mobileRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!open) return;
-    const onPointerDown = (event: PointerEvent) => {
-      if (!mobileRef.current?.contains(event.target as Node)) setOpen(false);
-    };
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("pointerdown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("pointerdown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open, setOpen]);
+  useDismiss(mobileRef, () => setOpen(false), open);
 
   return (
     <div
