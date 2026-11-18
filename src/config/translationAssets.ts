@@ -34,7 +34,16 @@ export const translations: Record<TLanguage, TDictionary> = {
 
 export const languageAssets: Record<TLanguage, { logo: string; alt: string }> =
   {
-    hu: { logo: "/images/logos/mwesnoth.png", alt: "Magyar Wesnoth Logó" },
-    ro: { logo: "/images/logos/rwesnoth.png", alt: "Siglă Wesnoth Română" },
-    pl: { logo: "/images/logos/lwesnoth.png", alt: "Polskie Logo Wesnoth" },
+    hu: {
+      logo: "/images/logos/mwesnoth_fall_logo_text.png",
+      alt: "Magyar Wesnoth Logó",
+    },
+    ro: {
+      logo: "/images/logos/rwesnoth_fall_logo_text.png",
+      alt: "Siglă Wesnoth Română",
+    },
+    pl: {
+      logo: "/images/logos/lwesnoth_fall_logo_text.png",
+      alt: "Polskie Logo Wesnoth",
+    },
   };
