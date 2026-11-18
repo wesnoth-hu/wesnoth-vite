@@ -1,43 +1,46 @@
-import { Link } from "react-router";
-import { Icon } from "@mdi/react";
-import { mdiMenu } from "@mdi/js";
-import { MENU_ITEMS } from "../../../config/routes";
+import { useState } from "react";
+import { useBreakpoint } from "./MenuModules/useBreakpoint";
+import Mobile from "./MenuModules/Mobile";
+import Tablet from "./MenuModules/Tablet";
+import SmallDesktop from "./MenuModules/SmallDesktop";
+import LargeDesktop from "./MenuModules/LargeDesktop";
 
-//TODO dynamic items to the right side(auth related)
 export default function Menu() {
+  const [open, setOpen] = useState(false);
+  const breakpoint = useBreakpoint();
+
   return (
     <div
-      data-testid="layout-menu__container-mobile"
-      className="relative w-full h-full flex flex-row justify-evenly items-center z-50"
+      data-testid="layout-menu__bg"
+      className="relative w-full h-[100px] bg-[url('/images/bg/dark_brown.jpg')] bg-no-repeat bg-cover bg-center z-20 shadow-[0_8px_16px_rgba(0,0,0,0.5)]"
     >
-      {MENU_ITEMS.map((item, index) => {
-        if (index > 0) {
-          return;
-        }
-        return (
-          <div
-            key={index}
-            data-testid="layout-menu__item"
-            className="font-oldania font-bold text-3xl text-white/75"
-          >
-            <Link
-              to={item.href}
-              data-testid="layout-menu__item-link"
-              className="w-full p-2 cursor-pointer"
-            >
-              {item.label}
-            </Link>
-          </div>
-        );
-      })}
-      <div data-testid="layout-menu__item" className="relative">
-        <Icon
-          path={mdiMenu}
-          size={2}
-          className="text-white/75 cursor-pointer"
+      <div
+        data-testid="layout-menu__decor"
+        className="absolute top-0 left-0 z-30 w-full flex flex-row justify-between items-center"
+      >
+        <img
+          data-testid="layout-menu__decor-corner-left"
+          src="/images/decor/fleur_de_lis.png"
+          alt="Medieval Corner Decor Pattern"
+          width="50"
+          height="50"
+          className="rotate-[135deg]"
         />
-        {/* //TODO hover menu only on smaller sizes */}
+        <img
+          data-testid="layout-menu__decor-corner-right"
+          src="/images/decor/fleur_de_lis.png"
+          alt="Medieval Corner Decor Pattern"
+          width="50"
+          height="50"
+          className="rotate-[-135deg]"
+        />
       </div>
+      {breakpoint === "mobile" && <Mobile open={open} setOpen={setOpen} />}
+      {breakpoint === "tablet" && <Tablet open={open} setOpen={setOpen} />}
+      {breakpoint === "smallDesktop" && (
+        <SmallDesktop open={open} setOpen={setOpen} />
+      )}
+      {breakpoint === "largeDesktop" && <LargeDesktop />}
     </div>
   );
 }
