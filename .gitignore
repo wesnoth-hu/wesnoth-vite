@@ -12,8 +12,10 @@ functions/node_modules
 dist
 dist-ssr
 *.local
+test/
 emulator-data/
 structure.txt
+.firebaserc
 
 # Editor directories and files
 .vscode/*
